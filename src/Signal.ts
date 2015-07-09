@@ -32,10 +32,10 @@ class Signal {
 
     /**
     * @property _prevParams
-    * @type Any
+    * @type any
     * @private
     */
-    private _prevParams = null;
+    private _prevParams:any = null;
 
     /**
     * Signals Version Number
@@ -51,25 +51,25 @@ class Signal {
     * already dispatched before.
     * @type boolean
     */
-    public memorize: bool = false;
+    public memorize: boolean = false;
 
     /**
     * @type boolean
     * @private
     */
-    private _shouldPropagate: bool = true;
+    private _shouldPropagate: boolean = true;
 
     /**
     * If Signal is active and should broadcast events.
     * <p><strong>IMPORTANT:</strong> Setting this property during a dispatch will only affect the next dispatch, if you want to stop the propagation of a signal use `halt()` instead.</p>
     * @type boolean
     */
-    public active: bool = true;
+    public active: boolean = true;
 
     /**
     * @method validateListener
-    * @param {Any} listener
-    * @param {Any} fnName
+    * @param {any} listener
+    * @param {any} fnName
     */
     public validateListener(listener, fnName) {
 
@@ -88,7 +88,7 @@ class Signal {
     * @return {SignalBinding}
     * @private
     */
-    private _registerListener(listener, isOnce: bool, listenerContext, priority: number): SignalBinding {
+    private _registerListener(listener, isOnce: boolean, listenerContext, priority: number): SignalBinding {
 
         var prevIndex: number = this._indexOfListener(listener, listenerContext);
         var binding: SignalBinding;
@@ -135,12 +135,13 @@ class Signal {
 
     }
 
-    /**
-    * @method _indexOfListener
-    * @param {Function} listener
-    * @return {number}
-    * @private
-    */
+	/**
+	 * @method _indexOfListener
+	 * @param {Function} listener
+	 * @param context
+	 * @return {number}
+	 * @private
+	 */
     private _indexOfListener(listener, context): number {
 
         var n: number = this._bindings.length;
@@ -166,7 +167,7 @@ class Signal {
     * @param {Object} [context]
     * @return {boolean} if Signal has the specified listener.
     */
-    public has(listener, context?: any = null): bool {
+    public has(listener, context: any = null): boolean {
 
         return this._indexOfListener(listener, context) !== -1;
 
@@ -179,7 +180,7 @@ class Signal {
     * @param {Number} [priority] The priority level of the event listener. Listeners with higher priority will be executed before listeners with lower priority. Listeners with same priority level will be executed at the same order as they were added. (default = 0)
     * @return {SignalBinding} An Object representing the binding between the Signal and listener.
     */
-    public add(listener, listenerContext?: any = null, priority?: number = 0): SignalBinding {
+    public add(listener, listenerContext: any = null, priority: number = 0): SignalBinding {
 
         this.validateListener(listener, 'add');
 
@@ -194,7 +195,7 @@ class Signal {
     * @param {Number} [priority] The priority level of the event listener. Listeners with higher priority will be executed before listeners with lower priority. Listeners with same priority level will be executed at the same order as they were added. (default = 0)
     * @return {SignalBinding} An Object representing the binding between the Signal and listener.
     */
-    public addOnce(listener, listenerContext?: any = null, priority?: number = 0): SignalBinding {
+    public addOnce(listener, listenerContext: any = null, priority: number = 0): SignalBinding {
 
         this.validateListener(listener, 'addOnce');
 
@@ -208,7 +209,7 @@ class Signal {
     * @param {Object} [context] Execution context (since you can add the same handler multiple times if executing in a different context).
     * @return {Function} Listener handler function.
     */
-    public remove(listener, context?: any = null) {
+    public remove(listener, context: any = null) {
 
         this.validateListener(listener, 'remove');
 
@@ -262,7 +263,7 @@ class Signal {
 
     /**
     * Dispatch/Broadcast Signal to all listeners added to the queue.
-    * @param {...*} [params] Parameters that should be passed to each handler.
+    * @param {...*} [paramsArr] Parameters that should be passed to each handler.
     */
     public dispatch(...paramsArr: any[]) {
 
